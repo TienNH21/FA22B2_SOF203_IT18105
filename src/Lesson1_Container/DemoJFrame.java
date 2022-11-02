@@ -1,5 +1,8 @@
 package Lesson1_Container;
 
+import java.io.File;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 public class DemoJFrame extends javax.swing.JFrame {
@@ -10,6 +13,15 @@ public class DemoJFrame extends javax.swing.JFrame {
         
 //        this.txtId.setEditable(false);
 //        this.txtId.setEnabled(false);
+
+        File f = new File("img/cat.png");
+        if (!f.exists()) {
+            JOptionPane.showMessageDialog(this, "Ảnh không tồn tại");
+            return ;
+        }
+        
+        ImageIcon icon = new ImageIcon("img/cat.png");
+        this.btnLoadImg.setIcon(icon);
     }
 
     @SuppressWarnings("unchecked")
@@ -23,6 +35,10 @@ public class DemoJFrame extends javax.swing.JFrame {
         txtPass = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
         btnToggle = new javax.swing.JButton();
+        lblImage = new javax.swing.JLabel();
+        btnLoadImg = new javax.swing.JButton();
+        btnInputDialog = new javax.swing.JButton();
+        btnConfirmDialog = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,23 +63,58 @@ public class DemoJFrame extends javax.swing.JFrame {
             }
         });
 
+        lblImage.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        btnLoadImg.setText("Load Img");
+        btnLoadImg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoadImgActionPerformed(evt);
+            }
+        });
+
+        btnInputDialog.setText("Input Dialog");
+        btnInputDialog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInputDialogActionPerformed(evt);
+            }
+        });
+
+        btnConfirmDialog.setText("Confirm Dialog");
+        btnConfirmDialog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmDialogActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                    .addComponent(txtId))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCheck)
-                    .addComponent(btnToggle))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                            .addComponent(txtId))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCheck)
+                            .addComponent(btnToggle)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(93, 93, 93)
+                        .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnLoadImg))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(btnInputDialog)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnConfirmDialog)))
                 .addContainerGap(70, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -79,7 +130,15 @@ public class DemoJFrame extends javax.swing.JFrame {
                     .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(btnToggle))
-                .addContainerGap(182, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLoadImg))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnInputDialog)
+                    .addComponent(btnConfirmDialog))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -117,6 +176,37 @@ public class DemoJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnToggleActionPerformed
 
+    private void btnLoadImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadImgActionPerformed
+        JFileChooser fChooser = new JFileChooser();
+        int chosed = fChooser.showOpenDialog(this.getRootPane());
+        if (chosed != JFileChooser.APPROVE_OPTION) {
+            return ;
+        }
+
+        File f = fChooser.getSelectedFile();
+        if (!f.exists()) {
+            JOptionPane.showMessageDialog(this, "Ảnh không tồn tại");
+            return ;
+        }
+        
+        ImageIcon icon = new ImageIcon("img/kitty.png");
+        this.lblImage.setIcon(icon);
+    }//GEN-LAST:event_btnLoadImgActionPerformed
+
+    private void btnInputDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInputDialogActionPerformed
+        String name = JOptionPane.showInputDialog("Nhập tên");
+        JOptionPane.showMessageDialog(this, "Hello, " + name);
+    }//GEN-LAST:event_btnInputDialogActionPerformed
+
+    private void btnConfirmDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmDialogActionPerformed
+        int confirm = JOptionPane.showConfirmDialog(this, "Xác nhận xóa?");
+        if (confirm == JOptionPane.YES_OPTION) {
+            System.out.println("Xóa");
+        } else {
+            System.out.println("Ko Xóa");
+        }
+    }//GEN-LAST:event_btnConfirmDialogActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -151,10 +241,14 @@ public class DemoJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCheck;
+    private javax.swing.JButton btnConfirmDialog;
+    private javax.swing.JButton btnInputDialog;
+    private javax.swing.JButton btnLoadImg;
     private javax.swing.JButton btnToggle;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblImage;
     private javax.swing.JTextField txtId;
     private javax.swing.JPasswordField txtPass;
     // End of variables declaration//GEN-END:variables
