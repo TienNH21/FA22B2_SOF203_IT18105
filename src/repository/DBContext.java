@@ -21,7 +21,7 @@ class DBContext {
     private static final String PASSWORD = "Aa@123456";
     private static final String SERVER = "localhost";
     private static final String PORT = "1433";
-    private static final String DATABASE_NAME = "su22b2_sof203";
+    private static final String DATABASE_NAME = "ql_sach_lt1";
     private static final boolean USING_SSL = false;
     
     private static String CONNECT_STRING;
